@@ -1,0 +1,59 @@
+.user-rectangle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 81px;
+    height: 74px;
+    background: #93B4BC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+  }
+  
+  .user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px 20px 20px 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 60px;
+      height: -webkit-fill-available;
+      top: 0;
+      left: 0;
+      
+    }
+  
+    .user-rectangle {
+      width: 60px;
+      height: 74px;
+      z-index: 9;
+    }
+  
+    .user-picture {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  @media (max-width: 1125px) {
+    .sidebar {
+      width: 60px;
+      height: -webkit-fill-available;
+      top: 0;
+      left: 0;
+    }
+  
+    .user-rectangle {
+      width: 60px;
+      height: 74px;
+      z-index: 9;
+    }
+  
+    .user-picture {
+      width: 30px;
+      height: 30px;
+    }
+  }

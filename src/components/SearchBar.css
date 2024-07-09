@@ -1,0 +1,87 @@
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0; /* Adjust as needed */
+}
+
+.search-input-container {
+  display: flex;
+  align-items: center;
+  width: 949px;
+  height: 52px;
+  border-radius: 41px 0 0 41px; /* Ensure container is also rounded */
+  overflow: hidden; /* Ensure the rounded corners are not cut off */
+  background: #fff; /* Set a background color if needed */
+  padding-left: 20px; /* Adjust as needed to make room for the icon */
+}
+
+.search-icon {
+  position: relative;
+  width: 24px; /* Adjusted width */
+  height: 24px; /* Adjusted height */
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px; /* Adjusted margin */
+}
+
+.search-icon::before {
+  content: '';
+  position: absolute;
+  width: 9.22px;
+  height: 3.22px;
+  background: #1D4A87;
+  transform: rotate(45deg);
+  bottom: 4px;
+  right: 1px;
+}
+
+.search-icon::after {
+      content: '';
+    position: absolute;
+    width: 16.13px;
+    height: 16.13px;
+    border: 2px solid #1D4A87;
+    border-radius: 50%;
+    top: -2px;
+    left: -2px;
+}
+
+.search-input {
+  flex: 1; /* Take the remaining space */
+  height: 100%;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  /* font-weight: 700; */
+  line-height: 20px;
+  font-size: 16px;
+  text-align: left;
+  border-radius: 41px 0 0 41px;
+}
+
+.search-button {
+  width: 58.63px;
+  height: 52px;
+  border-radius: 0 41px 41px 0;
+  border: none;
+  background: #93B4BC;
+  color: #FFFFFF; /* Text color for the button */
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .search-input-container {
+    width: 100%;
+    padding-left: 10px;
+  }
+
+  .search-button {
+    width: 50px;
+  }
+}

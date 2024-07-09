@@ -1,0 +1,67 @@
+.favorites {
+  padding: 20px;
+}
+
+.section-link {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.favorite-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.favorite-card i {
+  margin-right: 10px;
+}
+
+.favorite-card button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #679CF6;
+  color: white;
+  cursor: pointer;
+}
+
+.favorite-card button:hover {
+  background-color: #4072EE;
+}
+
+.icon {
+  color: #FF0000; /* Change the color as needed */
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+}
+
+.fa-star {
+  width: 18.58px;
+  height: 17px;
+  margin-right: 5px;
+}
+
+.filled-star {
+  color: #E08D3A; /* Filled star color */
+}
+
+.empty-star {
+  color: #CCCCCC; /* Empty star color */
+  border: 1px solid #CCCCCC;
+  border-radius: 50%; /* Ensure the border is rounded */
+}

@@ -1,0 +1,55 @@
+.top-bar {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 81px); /* Full width minus the user rectangle width */
+  height: 74px;
+  background: #FFFFFF;
+  position: fixed;
+  left: 81px; /* Adjust based on the width of the user rectangle */
+  top: 0;
+  opacity: 1;
+  padding: 0 20px;
+  z-index: 1;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+  font-weight: 800;
+  font-size: 23px;
+  line-height: 20px;
+  color: #000000;
+}
+
+.logo .rad {
+  color: #000000; /* Black color */
+}
+
+.logo .ical {
+  color: rgb(139, 32, 29); /* RGB color */
+}
+
+@media (max-width: 768px) {
+  .top-bar {
+    width: 100%;
+    left: 0;
+    justify-content: center;
+    z-index: 1;
+  }
+  .logo {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1125px) {
+  .top-bar {
+    width: 100%;
+    left: 0;
+    justify-content: center;
+    z-index: 1;
+  }
+  .logo {
+    margin-left: 0;
+  }
+}

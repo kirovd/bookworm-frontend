@@ -1,0 +1,29 @@
+/* Import Lato font globally in your main CSS file */
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+/* Global styles */
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.booklist {
+  margin: 20px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.section-link {
+  margin-right: 20px;
+  font-size: 22px;
+  color: black;
+  text-decoration: none;
+  transition: text-decoration 0.3s ease;
+}
+
+.section-link:hover {
+  text-decoration: underline;
+}

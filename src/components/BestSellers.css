@@ -1,0 +1,98 @@
+.bestsellers {
+  margin: 20px;
+}
+
+.search-bar-container {
+  margin-bottom: 20px;
+}
+
+.content-container {
+  margin-top: 20px;
+}
+
+.book-card {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto auto;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  gap: 20px;
+}
+
+.book-info {
+  display: flex;
+  align-items: center;
+}
+
+.book-info i {
+  margin-right: 10px;
+}
+
+.book-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
+}
+
+.book-author {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+}
+
+.book-stars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.book-price {
+  height: 20px;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: right;
+  color: #000;
+  margin-right: 20px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+}
+
+.fa-star {
+  width: 18.58px;
+  height: 17px;
+  margin-right: 5px;
+}
+
+.filled-star {
+  color: #E08D3A;
+}
+
+.fa-star.empty-star {
+  color: #CCCCCC;
+  background: transparent;
+  border: none;
+}
+
+.fa-heart {
+  cursor: pointer;
+}
+
+.fa-regular.empty-heart {
+  color: #CCCCCC;
+}
+
+.fa-solid.heart-icon {
+  color: red;
+}
