@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
+import axiosInstance from './axiosConfig';
 import BestSellers from './components/BestSellers';
 import BookList from './components/BookList';
 import Favorites from './components/Favorites';
@@ -13,6 +14,19 @@ import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await axiosInstance.get('/csrf-token');
+        axiosInstance.defaults.headers.common['X-CSRF-TOKEN'] = response.data.token;
+      } catch (error) {
+        console.error('Error fetching CSRF token', error);
+      }
+    };
+
+    fetchCsrfToken();
+  }, []);
+
   return (
     <Router>
       <div className="App">
