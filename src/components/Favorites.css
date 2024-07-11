@@ -87,7 +87,7 @@
 
 .fa-heart {
   cursor: pointer;
-  color: red; /* Ensures the heart icon is red */
+  color: red; 
 }
 
 .fa-regular.empty-heart {
@@ -137,7 +137,7 @@
     margin-top: 5px;
     width: auto;
     height: auto;
-    padding: 5px 10px; /* Adjust the padding as needed */
+    padding: 5px 10px;
   }
 
   a {

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useFavorites } from './FavoritesContext';
 import axiosInstance from '../axiosConfig';
 import SearchBar from './SearchBar';
 import './Favorites.css';
 
 const Favorites: React.FC = () => {
-  const [favorites, setFavorites] = useState<any[]>([]);
+  const [favoritesList, setFavoritesList] = useState<any[]>([]);
+  const { removeFavorite } = useFavorites();
 
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
         const response = await axiosInstance.get('/api/v1/favorites');
-        setFavorites(response.data);
+        setFavoritesList(response.data);
       } catch (error: any) {
         console.error('Error fetching favorites', error.response?.data || error.message);
       }
@@ -18,6 +20,16 @@ const Favorites: React.FC = () => {
 
     fetchFavorites();
   }, []);
+
+  const deleteFavorite = async (bookId: number) => {
+    try {
+      await axiosInstance.delete(`/api/v1/favorites/${bookId}`);
+      removeFavorite(bookId);
+      setFavoritesList(favoritesList.filter(favorite => favorite.book.id !== bookId));
+    } catch (error: any) {
+      console.error('Error deleting favorite', error.response?.data || error.message);
+    }
+  };
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -39,7 +51,7 @@ const Favorites: React.FC = () => {
       <SearchBar />
       <br />
       <div className="content-container">
-        {favorites.map(favorite => (
+        {favoritesList.map(favorite => (
           <div key={favorite.id} className="book-card">
             <div className="book-info">
               <i className="fa-solid fa-book-open book-icon"></i>
@@ -48,7 +60,7 @@ const Favorites: React.FC = () => {
             <div className="book-price">{favorite.book.price} GBP</div>
             <div className="book-stars">{renderStars(favorite.book.rating)}</div>
             <a href="#" className="edit-link">Edit</a>
-            <a href="#" className="delete-link">Delete</a>
+            <a href="#" className="delete-link" onClick={() => deleteFavorite(favorite.book.id)}>Delete</a>
             <i className="fas fa-heart icon heart-icon"></i>
           </div>
         ))}

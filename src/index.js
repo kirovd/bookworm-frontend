@@ -6,7 +6,6 @@ import axiosInstance from './axiosConfig';
 
 const MainApp = () => {
   useEffect(() => {
-    // Fetch and set CSRF token on initial load
     const initializeCsrfToken = async () => {
       await axiosInstance.get('/csrf-token');
     };
@@ -18,5 +17,5 @@ const MainApp = () => {
 };
 
 const container = document.getElementById('root');
-const root = createRoot(container); // createRoot is now used instead of ReactDOM.render
+const root = createRoot(container);
 root.render(<MainApp />);

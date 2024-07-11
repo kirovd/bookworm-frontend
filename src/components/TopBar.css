@@ -1,11 +1,11 @@
 .top-bar {
   display: flex;
   align-items: center;
-  width: calc(100% - 81px); /* Full width minus the user rectangle width */
+  width: calc(100% - 81px);
   height: 74px;
   background: #FFFFFF;
   position: fixed;
-  left: 81px; /* Adjust based on the width of the user rectangle */
+  left: 81px; 
   top: 0;
   opacity: 1;
   padding: 0 20px;
@@ -23,11 +23,11 @@
 }
 
 .logo .rad {
-  color: #000000; /* Black color */
+  color: #000000;
 }
 
 .logo .ical {
-  color: rgb(139, 32, 29); /* RGB color */
+  color: rgb(139, 32, 29);
 }
 
 @media (max-width: 768px) {

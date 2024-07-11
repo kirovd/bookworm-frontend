@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0; /* Adjust as needed */
+  margin: 20px 0; 
 }
 
 .search-input-container {
@@ -10,21 +10,21 @@
   align-items: center;
   width: 949px;
   height: 52px;
-  border-radius: 41px 0 0 41px; /* Ensure container is also rounded */
-  overflow: hidden; /* Ensure the rounded corners are not cut off */
-  background: #fff; /* Set a background color if needed */
-  padding-left: 20px; /* Adjust as needed to make room for the icon */
+  border-radius: 41px 0 0 41px; 
+  overflow: hidden; 
+  background: #fff; 
+  padding-left: 20px;
 }
 
 .search-icon {
   position: relative;
-  width: 24px; /* Adjusted width */
-  height: 24px; /* Adjusted height */
+  width: 24px;
+  height: 24px;
   background: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px; /* Adjusted margin */
+  margin-right: 10px;
 }
 
 .search-icon::before {
@@ -50,11 +50,10 @@
 }
 
 .search-input {
-  flex: 1; /* Take the remaining space */
+  flex: 1;
   height: 100%;
   border: none;
   font-family: 'Lato', sans-serif;
-  /* font-weight: 700; */
   line-height: 20px;
   font-size: 16px;
   text-align: left;
@@ -67,7 +66,7 @@
   border-radius: 0 41px 41px 0;
   border: none;
   background: #93B4BC;
-  color: #FFFFFF; /* Text color for the button */
+  color: #FFFFFF;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
   line-height: 20px;

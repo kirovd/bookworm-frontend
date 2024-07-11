@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
+import { FavoritesProvider } from './components/FavoritesContext';
 import axiosInstance from './axiosConfig';
 import BestSellers from './components/BestSellers';
 import BookList from './components/BookList';
@@ -28,22 +29,24 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="App">
-        <Sidebar />
-        <UserRectangle />
-        <div className="main-content">
-          <TopBar />
-          <br></br>
-          <br></br>
-          <Routes>
-            <Route path="/" element={<BookList />} />
-            <Route path="/bestsellers" element={<BestSellers />} />
-            <Route path="/favorites" element={<Favorites />} />
-          </Routes>
+    <FavoritesProvider>
+      <Router>
+        <div className="App">
+          <Sidebar />
+          <UserRectangle />
+          <div className="main-content">
+            <TopBar />
+            <br></br>
+            <br></br>
+            <Routes>
+              <Route path="/" element={<BookList />} />
+              <Route path="/bestsellers" element={<BestSellers />} />
+              <Route path="/favorites" element={<Favorites />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </FavoritesProvider>
   );
 }
 

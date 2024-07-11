@@ -16,7 +16,6 @@ const Sidebar: React.FC = () => {
   }, [location]);
 
   useEffect(() => {
-    // Save active button state to local storage
     localStorage.setItem('activeButton', activeButton);
   }, [activeButton]);
 

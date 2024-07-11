@@ -2,8 +2,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000', // Adjust the baseURL to your backend URL
-  withCredentials: true, // Ensure cookies are sent with requests
+  baseURL: 'http://localhost:8000', 
+  withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(async (config) => {

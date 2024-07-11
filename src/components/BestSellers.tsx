@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-
+import { useFavorites } from './FavoritesContext';
 import axiosInstance from '../axiosConfig';
-// Ensure the correct path to axiosConfig
 import SearchBar from './SearchBar';
-
 import './BestSellers.css';
 
 const BestSellers: React.FC = () => {
   const [books, setBooks] = useState<any[]>([]);
-  const [favorites, setFavorites] = useState<Set<number>>(new Set());
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -24,7 +22,7 @@ const BestSellers: React.FC = () => {
       try {
         const response = await axiosInstance.get('/api/v1/favorites');
         const favoriteIds = new Set<number>(response.data.map((fav: any) => fav.book_id));
-        setFavorites(favoriteIds);
+        favoriteIds.forEach(id => addFavorite(id));
       } catch (error: any) {
         console.error('Error fetching favorites', error.response?.data || error.message);
       }
@@ -32,28 +30,24 @@ const BestSellers: React.FC = () => {
 
     fetchBooks();
     fetchFavorites();
-  }, []);
+  }, [addFavorite]);
 
   const toggleFavorite = async (bookId: number) => {
-    const newFavorites = new Set(favorites);
-
     if (favorites.has(bookId)) {
-      newFavorites.delete(bookId);
+      removeFavorite(bookId);
       try {
         await axiosInstance.delete(`/api/v1/favorites/${bookId}`);
       } catch (error: any) {
         console.error('Error removing favorite', error.response?.data || error.message);
       }
     } else {
-      newFavorites.add(bookId);
+      addFavorite(bookId);
       try {
-        console.log('Adding favorite', { book_id: bookId });
         await axiosInstance.post('/api/v1/favorites', { book_id: bookId });
       } catch (error: any) {
         console.error('Error adding favorite', error.response?.data || error.message);
       }
     }
-    setFavorites(newFavorites);
   };
 
   const renderStars = (rating: number) => {

@@ -17,7 +17,7 @@ const BookList: React.FC = () => {
     const fetchBooks = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/v1/books');
-        setBooks(response.data.slice(0, 3)); // Display top 3 books
+        setBooks(response.data.slice(0, 3));
       } catch (error) {
         console.error('Error fetching books', error);
       }

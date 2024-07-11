@@ -16,12 +16,12 @@
   width: 96px;
   height: 216px;
   gap: 0px;
-  opacity: 1; /* Set to 1 to ensure visibility */
+  opacity: 1; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* Align nav items to the top */
-  margin-top: 11em; /* 40% from the top */
+  justify-content: flex-start; 
+  margin-top: 11em; 
 }
 
 .nav-item {
@@ -34,7 +34,7 @@
   width: 20px;
   height: 1px;
   background: #e8f0f8;
-  opacity: 1; /* Set to 1 to ensure visibility */
+  opacity: 1; 
   margin-top: 10px;
 }
 
@@ -73,7 +73,7 @@
 }
 
 .stats-button.active .bar-chart {
-  color: #ffffff; /* Adjust as needed for active icon color */
+  color: #ffffff; 
 }
 
 .bar-chart {
@@ -96,15 +96,15 @@
 }
 
 .bar-chart .bar-small {
-  height: 6px; /* 30% of 24px */
+  height: 6px; 
 }
 
 .bar-chart .bar-medium {
-  height: 12px; /* 60% of 24px */
+  height: 12px; 
 }
 
 .bar-chart .bar-large {
-  height: 24px; /* 100% of 24px */
+  height: 24px; 
 }
 
 .bar-chart-separator {
@@ -152,7 +152,7 @@ a:-webkit-any-link {
   }
 
   .nav {
-    margin-top: 11em; /* Maintain 40% from the top for smaller screens */
+    margin-top: 11em;
     width: 60px;
     height: auto;
   }
@@ -165,7 +165,7 @@ a:-webkit-any-link {
     width: 20px;
     height: 1px;
     background: #e8f0f8;
-    opacity: 1; /* Set to 1 to ensure visibility */
+    opacity: 1; 
   }
 
   .nav-link.active .stats-button,
