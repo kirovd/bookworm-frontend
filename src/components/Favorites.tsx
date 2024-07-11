@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useFavorites } from './FavoritesContext';
 import axiosInstance from '../axiosConfig';
 import SearchBar from './SearchBar';
+import EditBook from './EditBook';
 import './Favorites.css';
 
 const Favorites: React.FC = () => {
   const [favoritesList, setFavoritesList] = useState<any[]>([]);
   const { removeFavorite } = useFavorites();
+  const [editingBook, setEditingBook] = useState<any>(null);
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -44,6 +46,15 @@ const Favorites: React.FC = () => {
     return stars;
   };
 
+  const formatPrice = (price: any) => {
+    const parsedPrice = parseFloat(price);
+    return isNaN(parsedPrice) ? price : parsedPrice.toFixed(0);
+  };
+
+  if (editingBook) {
+    return <EditBook book={editingBook} onUpdate={() => setEditingBook(null)} />;
+  }
+
   return (
     <div className="favorites">
       <h1 className="section-link">Favorites</h1>
@@ -57,9 +68,9 @@ const Favorites: React.FC = () => {
               <i className="fa-solid fa-book-open book-icon"></i>
               <span className="book-title">{favorite.book.title} <span className="book-author">by {favorite.book.author}</span></span>
             </div>
-            <div className="book-price">{favorite.book.price} GBP</div>
+            <div className="book-price">{formatPrice(favorite.book.price)} GBP</div>
             <div className="book-stars">{renderStars(favorite.book.rating)}</div>
-            <a href="#" className="edit-link">Edit</a>
+            <a href="#" className="edit-link" onClick={() => setEditingBook(favorite.book)}>Edit</a>
             <a href="#" className="delete-link" onClick={() => deleteFavorite(favorite.book.id)}>Delete</a>
             <i className="fas fa-heart icon heart-icon"></i>
           </div>

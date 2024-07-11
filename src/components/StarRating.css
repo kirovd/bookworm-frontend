@@ -1,0 +1,22 @@
+.star-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the stars horizontally */
+    height: 100%; /* Ensure it takes up the full height of its container */
+  }
+  
+  .fa-star {
+    width: 18.58px;
+    height: 17px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  .filled-star {
+    color: #E08D3A; /* Filled star color */
+  }
+  
+  .empty-star {
+    color: #CCCCCC; /* Empty star color */
+  }
+  

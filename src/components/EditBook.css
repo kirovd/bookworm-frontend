@@ -1,0 +1,150 @@
+.edit-book {
+    margin: 20px;
+  }
+  
+  .card-edit {
+    width: 1039px;
+    height: 221px;
+    gap: 0px;
+    background-size: cover;
+    position: relative;
+    box-shadow: inset 0 0 1000px rgba(0, 0, 0, 30.5);
+  }
+  
+  .book-title-edit {
+    width: 649px;
+    height: 20px;
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #FFFFFF;
+    text-align: left;
+  }
+  
+  .title-edit {
+    font-family: 'Lato', sans-serif;
+    font-size: 43px;
+    font-weight: 700;
+  }
+  
+  .book-author-edit {
+    font-family: 'Lato', sans-serif;
+    font-size: 43px;
+    font-weight: 400;
+  }
+  
+  .edit-label {
+    font-family: Lato, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-top: 20px;
+    color: #454664;
+  }
+  
+  .edit-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-group-prepend {
+    display: flex;
+  }
+  
+  .input-group-text {
+    width: 97px;
+    height: 52px;
+    background: #93B4BC;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-family: Lato, sans-serif;
+    font-size: 16px;
+  }
+  
+  .field-input-edit {
+    height: 52px;
+    background: #FFFFFF;
+    border: none;
+    font-size: 16px;
+    font-family: Lato, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+  }
+  
+  .price-input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .price-input {
+    width: 496px;
+    padding-left: 40px;
+  }
+  
+  .currency-text {
+    position: absolute;
+    right: 440px;
+    color: #000;
+    font-family: Lato, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
+  .star-rating-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 40px;
+    width: 496px;
+  }
+  
+  .update-button {
+    width: 218px;
+    height: 52px;
+    margin-top: 20px;
+    border-radius: 41px;
+    background: linear-gradient(180deg, #679CF6 0%, #4072EE 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: Lato, sans-serif;
+  }
+  
+  .return-link {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    cursor: pointer;  
+    font-family: Blender Pro;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: -0.02em;
+    text-align: left;
+  }
+  
+  .favoritesPage {
+    color: #93B4BC;
+  }
+  
+  .arrow {
+    width: 23.17px;
+    color: #454664;
+  }
+  
