@@ -87,7 +87,7 @@
 
 .fa-heart {
   cursor: pointer;
-  color: red; 
+  color: #93B4BC; 
 }
 
 .fa-regular.empty-heart {
@@ -95,7 +95,7 @@
 }
 
 .fa-solid.heart-icon {
-  color: red;
+  color: #93B4BC;
 }
 
 .edit-link, .delete-link {

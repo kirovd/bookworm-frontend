@@ -38,6 +38,10 @@
   text-align: left;
 }
 
+.book-icon {
+  color: #93B4BC;
+}
+
 .book-author {
   font-family: 'Lato', sans-serif;
   font-size: 16px;
@@ -94,5 +98,6 @@
 }
 
 .fa-solid.heart-icon {
-  color: red;
+  color:  #93B4BC;
+  ;
 }
