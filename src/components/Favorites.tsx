@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 import SearchBar from './SearchBar';
 import './Favorites.css';
 
@@ -9,10 +9,10 @@ const Favorites: React.FC = () => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/favorites');
-        setFavorites(response.data); // Assuming the API returns data in the correct format
-      } catch (error) {
-        console.error('Error fetching favorites', error);
+        const response = await axiosInstance.get('/api/v1/favorites');
+        setFavorites(response.data);
+      } catch (error: any) {
+        console.error('Error fetching favorites', error.response?.data || error.message);
       }
     };
 
@@ -35,17 +35,21 @@ const Favorites: React.FC = () => {
   return (
     <div className="favorites">
       <h1 className="section-link">Favorites</h1>
+      <br />
       <SearchBar />
+      <br />
       <div className="content-container">
         {favorites.map(favorite => (
-          <div key={favorite.id} className="favorite-card">
-            <i className="fa-solid fa-book-open"></i>
-            <span>{favorite.title} by {favorite.author}</span>
-            <span>{favorite.price} GBP</span>
-            <span className="stars">{renderStars(favorite.rating)}</span>
-            <button>Edit</button>
-            <button>Delete</button>
-            <i className="fas fa-heart icon"></i>
+          <div key={favorite.id} className="book-card">
+            <div className="book-info">
+              <i className="fa-solid fa-book-open book-icon"></i>
+              <span className="book-title">{favorite.book.title} <span className="book-author">by {favorite.book.author}</span></span>
+            </div>
+            <div className="book-price">{favorite.book.price} GBP</div>
+            <div className="book-stars">{renderStars(favorite.book.rating)}</div>
+            <a href="#" className="edit-link">Edit</a>
+            <a href="#" className="delete-link">Delete</a>
+            <i className="fas fa-heart icon heart-icon"></i>
           </div>
         ))}
       </div>

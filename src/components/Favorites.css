@@ -1,48 +1,67 @@
 .favorites {
-  padding: 20px;
+  margin: 20px;
 }
 
-.section-link {
-  font-size: 24px;
+.search-bar-container {
   margin-bottom: 20px;
 }
 
 .content-container {
-  display: flex;
-  flex-direction: column;
+  margin-top: 20px;
+}
+
+.book-card {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto auto auto auto;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
   gap: 20px;
 }
 
-.favorite-card {
+.book-info {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
 }
 
-.favorite-card i {
+.book-info i {
   margin-right: 10px;
 }
 
-.favorite-card button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #679CF6;
-  color: white;
-  cursor: pointer;
+.book-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
 }
 
-.favorite-card button:hover {
-  background-color: #4072EE;
+.book-author {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
 }
 
-.icon {
-  color: #FF0000; /* Change the color as needed */
+.book-stars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.book-price {
+  height: 20px;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: right;
+  color: #000;
+  margin-right: 20px;
 }
 
 .stars {
@@ -57,11 +76,71 @@
 }
 
 .filled-star {
-  color: #E08D3A; /* Filled star color */
+  color: #E08D3A;
 }
 
-.empty-star {
-  color: #CCCCCC; /* Empty star color */
-  border: 1px solid #CCCCCC;
-  border-radius: 50%; /* Ensure the border is rounded */
+.fa-star.empty-star {
+  color: #CCCCCC;
+  background: transparent;
+  border: none;
+}
+
+.fa-heart {
+  cursor: pointer;
+  color: red; /* Ensures the heart icon is red */
+}
+
+.fa-regular.empty-heart {
+  color: #CCCCCC;
+}
+
+.fa-solid.heart-icon {
+  color: red;
+}
+
+.edit-link, .delete-link {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #5B5B5B;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+  .favorites {
+    padding: 10px;
+  }
+
+  .section-link {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .book-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .book-card span {
+    margin-bottom: 10px;
+  }
+
+  .book-card a {
+    margin-left: 0;
+    margin-top: 5px;
+    width: auto;
+    height: auto;
+    padding: 5px 10px; /* Adjust the padding as needed */
+  }
+
+  a {
+    color: #5B5B5B;
+  }
 }
