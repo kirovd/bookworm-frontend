@@ -13,14 +13,21 @@ const BestSellers: React.FC = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axiosInstance.get('/api/v1/books');
-        setBooks(response.data);
-        setFilteredBooksList(response.data);
+        const internalResponse = await axiosInstance.get('/api/v1/books');
+        const externalResponse = await axiosInstance.get('/api/v1/external-books');
+        const allBooks = [...internalResponse.data, ...externalResponse.data];
+        setBooks(allBooks);
+        setFilteredBooksList(allBooks);
       } catch (error: any) {
         console.error('Error fetching books', error.response?.data || error.message);
+        if (error.response?.data) {
+          alert(`Error: ${error.response.data.error}`);
+        } else {
+          alert('Error fetching books from the external API');
+        }
       }
     };
-
+  
     const fetchFavorites = async () => {
       try {
         const response = await axiosInstance.get('/api/v1/favorites');
@@ -30,12 +37,17 @@ const BestSellers: React.FC = () => {
         console.error('Error fetching favorites', error.response?.data || error.message);
       }
     };
-
+  
     fetchBooks();
     fetchFavorites();
   }, [addFavorite]);
 
-  const toggleFavorite = async (bookId: number) => {
+  const toggleFavorite = async (bookId: number | undefined) => {
+    if (!bookId) {
+      console.error('Invalid book id');
+      return;
+    }
+
     if (favorites.has(bookId)) {
       removeFavorite(bookId);
       try {
@@ -92,8 +104,8 @@ const BestSellers: React.FC = () => {
       <SearchBar onSearch={onSearch} />
       <br />
       <div className="content-container">
-        {filteredBooksList.map(book => (
-          <div key={book.id} className="book-card">
+        {filteredBooksList.map((book, index) => (
+          <div key={`book-${book.id}-${index}`} className="book-card">
             <div className="book-info">
               <i className="fa-solid fa-book-open book-icon"></i>
               <span className="book-title">{book.title} <span className="book-author">by {book.author}</span></span>
