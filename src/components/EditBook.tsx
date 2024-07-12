@@ -5,7 +5,7 @@ import axiosInstance from '../axiosConfig';
 import './EditBook.css';
 
 const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdate }) => {
-  const [price, setPrice] = useState<string>(`${parseInt(book.price)} GBP`); // Format the price to remove .00 and add GBP
+  const [price, setPrice] = useState<string>(`${parseInt(book.price)} GBP`);
   const [rating, setRating] = useState(book.rating);
   const [initialPrice] = useState<string>(`${parseInt(book.price)} GBP`);
   const [initialRating] = useState(book.rating);
@@ -13,7 +13,7 @@ const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdat
   const [modalMessage, setModalMessage] = useState('');
 
   const handleUpdate = async () => {
-    const numericPrice = parseInt(price.replace(/[^0-9]/g, '')); // Extract the numeric part
+    const numericPrice = parseInt(price.replace(/[^0-9]/g, ''));
     if (isNaN(numericPrice)) {
       setModalMessage('Please enter a valid price');
       setShowModal(true);
@@ -55,11 +55,11 @@ const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdat
   const randomBackgroundUrl = backgroundUrls[Math.floor(Math.random() * backgroundUrls.length)];
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+    const value = e.target.value.replace(/[^0-9]/g, '');
     if (!isNaN(Number(value))) {
       setPrice(value + ' GBP');
     } else {
-      setPrice(''); // Reset price if the input is invalid
+      setPrice('');
     }
   };
 
@@ -105,7 +105,7 @@ const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdat
       <br />
       <div className="return-link" onClick={onUpdate}>
         <span className="arrow">←</span> 
-        <span className="whitespace">Return to</span>&nbsp;
+        <span className="whitespace">Return to: </span>&nbsp;
         <span className="favoritesPage">Favorites</span>
       </div>
 
