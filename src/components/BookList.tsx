@@ -26,10 +26,14 @@ const BookList: React.FC = () => {
     fetchBooks();
   }, []);
 
+  const onSearch = (query: string) => {
+    console.log('Searching for:', query);
+  };
+
   return (
     <div className="booklist">
       <br />
-      <SearchBar />
+      <SearchBar onSearch={onSearch} />
       <br />
       <div className="section-header">
         <Link to="/bestsellers" className="section-link">New York Times Bestsellers</Link>

@@ -7,12 +7,15 @@ import './BestSellers.css';
 const BestSellers: React.FC = () => {
   const [books, setBooks] = useState<any[]>([]);
   const { favorites, addFavorite, removeFavorite } = useFavorites();
+  const [filteredBooksList, setFilteredBooksList] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         const response = await axiosInstance.get('/api/v1/books');
         setBooks(response.data);
+        setFilteredBooksList(response.data);
       } catch (error: any) {
         console.error('Error fetching books', error.response?.data || error.message);
       }
@@ -68,15 +71,28 @@ const BestSellers: React.FC = () => {
     return isNaN(parsedPrice) ? price : parsedPrice.toFixed(0);
   };
 
+  const onSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  useEffect(() => {
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    const filtered = books.filter(book =>
+      book.title.toLowerCase().includes(lowerCaseQuery) ||
+      book.author.toLowerCase().includes(lowerCaseQuery)
+    );
+    setFilteredBooksList(filtered);
+  }, [searchQuery, books]);
+
   return (
     <div className="bestsellers">
       <br />
       <h1 className="section-link">New York Times Bestsellers</h1>
       <br />
-      <SearchBar />
+      <SearchBar onSearch={onSearch} />
       <br />
       <div className="content-container">
-        {books.map(book => (
+        {filteredBooksList.map(book => (
           <div key={book.id} className="book-card">
             <div className="book-info">
               <i className="fa-solid fa-book-open book-icon"></i>

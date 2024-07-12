@@ -7,6 +7,7 @@ import './Favorites.css';
 
 const Favorites: React.FC = () => {
   const [favoritesList, setFavoritesList] = useState<any[]>([]);
+  const [filteredFavoritesList, setFilteredFavoritesList] = useState<any[]>([]);
   const { removeFavorite } = useFavorites();
   const [editingBook, setEditingBook] = useState<any>(null);
 
@@ -15,6 +16,7 @@ const Favorites: React.FC = () => {
       try {
         const response = await axiosInstance.get('/api/v1/favorites');
         setFavoritesList(response.data);
+        setFilteredFavoritesList(response.data);
       } catch (error: any) {
         console.error('Error fetching favorites', error.response?.data || error.message);
       }
@@ -28,6 +30,7 @@ const Favorites: React.FC = () => {
       await axiosInstance.delete(`/api/v1/favorites/${bookId}`);
       removeFavorite(bookId);
       setFavoritesList(favoritesList.filter(favorite => favorite.book.id !== bookId));
+      setFilteredFavoritesList(filteredFavoritesList.filter(favorite => favorite.book.id !== bookId));
     } catch (error: any) {
       console.error('Error deleting favorite', error.response?.data || error.message);
     }
@@ -51,6 +54,14 @@ const Favorites: React.FC = () => {
     return isNaN(parsedPrice) ? price : parsedPrice.toFixed(0);
   };
 
+  const onSearch = (query: string) => {
+    const filtered = favoritesList.filter(favorite =>
+      favorite.book.title.toLowerCase().includes(query.toLowerCase()) ||
+      favorite.book.author.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredFavoritesList(filtered);
+  };
+
   if (editingBook) {
     return <EditBook book={editingBook} onUpdate={() => setEditingBook(null)} />;
   }
@@ -59,10 +70,10 @@ const Favorites: React.FC = () => {
     <div className="favorites">
       <h1 className="section-link">Favorites</h1>
       <br />
-      <SearchBar />
+      <SearchBar onSearch={onSearch} />
       <br />
       <div className="content-container">
-        {favoritesList.map(favorite => (
+        {filteredFavoritesList.map(favorite => (
           <div key={favorite.id} className="book-card">
             <div className="book-info">
               <i className="fa-solid fa-book-open book-icon"></i>
