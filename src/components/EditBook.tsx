@@ -1,16 +1,46 @@
 import React, { useState } from 'react';
 import CardEdit from './CardEdit';
 import StarRating from './StarRating';
+import axiosInstance from '../axiosConfig';
 import './EditBook.css';
 
 const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdate }) => {
-  const [price, setPrice] = useState(parseInt(book.price)); // Parse the price to get the integer part
+  const [price, setPrice] = useState<string>(`${parseInt(book.price)} GBP`); // Format the price to remove .00 and add GBP
   const [rating, setRating] = useState(book.rating);
+  const [initialPrice] = useState<string>(`${parseInt(book.price)} GBP`);
+  const [initialRating] = useState(book.rating);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
-  const handleUpdate = () => {
-    // Here you would send the update to the backend
-    // and call the onUpdate function to refresh the favorites list
-    onUpdate();
+  const handleUpdate = async () => {
+    const numericPrice = parseInt(price.replace(/[^0-9]/g, '')); // Extract the numeric part
+    if (isNaN(numericPrice)) {
+      setModalMessage('Please enter a valid price');
+      setShowModal(true);
+      return;
+    }
+    try {
+      await axiosInstance.put(`/api/v1/books/${book.id}`, { price: numericPrice, rating });
+      let message = 'You have successfully updated ';
+      if (`${numericPrice} GBP` !== initialPrice && rating !== initialRating) {
+        message += `the price to ${numericPrice} GBP and the rating to ${rating}`;
+      } else if (`${numericPrice} GBP` !== initialPrice) {
+        message += `the price to ${numericPrice} GBP`;
+      } else if (rating !== initialRating) {
+        message += `the rating to ${rating}`;
+      }
+      setModalMessage(message);
+      setShowModal(true);
+    } catch (error) {
+      console.error('Error updating book', error);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    if (modalMessage !== 'Please enter a valid price') {
+      onUpdate();
+    }
   };
 
   const backgroundUrls = [
@@ -23,6 +53,15 @@ const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdat
   ];
 
   const randomBackgroundUrl = backgroundUrls[Math.floor(Math.random() * backgroundUrls.length)];
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+    if (!isNaN(Number(value))) {
+      setPrice(value + ' GBP');
+    } else {
+      setPrice(''); // Reset price if the input is invalid
+    }
+  };
 
   return (
     <div className="edit-book">
@@ -45,9 +84,8 @@ const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdat
               type="text"
               className="form-control field-input-edit price-input"
               value={price}
-              onChange={(e) => setPrice(parseInt(e.target.value))}
+              onChange={handlePriceChange}
             />
-            <span className="currency-text">GBP</span>
           </div>
         </div>
         <br />
@@ -70,6 +108,15 @@ const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdat
         <span className="whitespace">Return to</span>&nbsp;
         <span className="favoritesPage">Favorites</span>
       </div>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <p>{modalMessage}</p>
+            <button onClick={handleCloseModal}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
