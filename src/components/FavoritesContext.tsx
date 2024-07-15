@@ -1,9 +1,18 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+interface Favorite {
+  id: string;
+  book_id: string;
+  title: string;
+  author: string;
+  price: number;
+  rating: number;
+}
+
 interface FavoritesContextProps {
-  favorites: Set<number>;
-  addFavorite: (id: number) => void;
-  removeFavorite: (id: number) => void;
+  favorites: Set<Favorite>;
+  addFavorite: (favorite: Favorite) => void;
+  removeFavorite: (id: string) => void;
 }
 
 const FavoritesContext = createContext<FavoritesContextProps | undefined>(undefined);
@@ -21,16 +30,20 @@ interface FavoritesProviderProps {
 }
 
 export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({ children }) => {
-  const [favorites, setFavorites] = useState<Set<number>>(new Set());
+  const [favorites, setFavorites] = useState<Set<Favorite>>(new Set());
 
-  const addFavorite = (id: number) => {
-    setFavorites((prevFavorites) => new Set(prevFavorites).add(id));
+  const addFavorite = (favorite: Favorite) => {
+    setFavorites((prevFavorites) => new Set(prevFavorites).add(favorite));
   };
 
-  const removeFavorite = (id: number) => {
+  const removeFavorite = (id: string) => {
     setFavorites((prevFavorites) => {
       const newFavorites = new Set(prevFavorites);
-      newFavorites.delete(id);
+      newFavorites.forEach(fav => {
+        if (fav.book_id === id) {
+          newFavorites.delete(fav);
+        }
+      });
       return newFavorites;
     });
   };

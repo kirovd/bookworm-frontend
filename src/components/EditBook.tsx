@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import CardEdit from './CardEdit';
 import StarRating from './StarRating';
 import axiosInstance from '../axiosConfig';
+import { useNavigate } from 'react-router-dom';
 import './EditBook.css';
 
-const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdate }) => {
+interface EditBookProps {
+  book: any;
+  onUpdate: (updatedBook: any) => void;
+}
+
+const EditBook: React.FC<EditBookProps> = ({ book, onUpdate }) => {
   const [price, setPrice] = useState<string>(`${parseInt(book.price)} GBP`);
   const [rating, setRating] = useState(book.rating);
   const [initialPrice] = useState<string>(`${parseInt(book.price)} GBP`);
   const [initialRating] = useState(book.rating);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleUpdate = async () => {
     const numericPrice = parseInt(price.replace(/[^0-9]/g, ''));
@@ -20,7 +26,7 @@ const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdat
       return;
     }
     try {
-      await axiosInstance.put(`/api/v1/books/${book.id}`, { price: numericPrice, rating });
+      await axiosInstance.put(`/api/v1/favorites/${book.book_id}`, { price: numericPrice, rating });
       let message = 'You have successfully updated ';
       if (`${numericPrice} GBP` !== initialPrice && rating !== initialRating) {
         message += `the price to ${numericPrice} GBP and the rating to ${rating}`;
@@ -31,6 +37,7 @@ const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdat
       }
       setModalMessage(message);
       setShowModal(true);
+      onUpdate({ ...book, price: numericPrice, rating });
     } catch (error) {
       console.error('Error updating book', error);
     }
@@ -38,9 +45,6 @@ const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdat
 
   const handleCloseModal = () => {
     setShowModal(false);
-    if (modalMessage !== 'Please enter a valid price') {
-      onUpdate();
-    }
   };
 
   const backgroundUrls = [
@@ -103,7 +107,7 @@ const EditBook: React.FC<{ book: any, onUpdate: () => void }> = ({ book, onUpdat
       <br />
       <br />
       <br />
-      <div className="return-link" onClick={onUpdate}>
+      <div className="return-link" onClick={() => navigate("/favorites")}>
         <span className="arrow">←</span> 
         <span className="whitespace">Return to: </span>&nbsp;
         <span className="favoritesPage">Favorites</span>

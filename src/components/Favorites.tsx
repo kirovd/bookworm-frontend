@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useFavorites } from './FavoritesContext';
+import { useBooks } from './BooksContext';
 import axiosInstance from '../axiosConfig';
 import SearchBar from './SearchBar';
 import EditBook from './EditBook';
@@ -9,6 +10,7 @@ const Favorites: React.FC = () => {
   const [favoritesList, setFavoritesList] = useState<any[]>([]);
   const [filteredFavoritesList, setFilteredFavoritesList] = useState<any[]>([]);
   const { removeFavorite } = useFavorites();
+  const { books, setBooks } = useBooks();
   const [editingBook, setEditingBook] = useState<any>(null);
 
   useEffect(() => {
@@ -25,24 +27,38 @@ const Favorites: React.FC = () => {
     fetchFavorites();
   }, []);
 
-  const deleteFavorite = async (bookId: number) => {
+  const deleteFavorite = async (bookId: string) => {
     try {
       await axiosInstance.delete(`/api/v1/favorites/${bookId}`);
       removeFavorite(bookId);
-      setFavoritesList(favoritesList.filter(favorite => favorite.book.id !== bookId));
-      setFilteredFavoritesList(filteredFavoritesList.filter(favorite => favorite.book.id !== bookId));
+      setFavoritesList(favoritesList.filter(favorite => favorite.book_id !== bookId));
+      setFilteredFavoritesList(filteredFavoritesList.filter(favorite => favorite.book_id !== bookId));
     } catch (error: any) {
       console.error('Error deleting favorite', error.response?.data || error.message);
     }
   };
 
-  const renderStars = (rating: number) => {
+  const handleUpdate = (updatedBook: any) => {
+    setFavoritesList(prevList =>
+      prevList.map(book => (book.book_id === updatedBook.book_id ? updatedBook : book))
+    );
+    setFilteredFavoritesList(prevList =>
+      prevList.map(book => (book.book_id === updatedBook.book_id ? updatedBook : book))
+    );
+    setBooks(prevBooks =>
+      prevBooks.map(book =>
+        book.primary_isbn13 === updatedBook.book_id ? { ...book, ...updatedBook } : book
+      )
+    );
+  };
+
+  const renderStars = (rating: number | null) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       stars.push(
         <i 
           key={i} 
-          className={`fa-star ${i <= rating ? 'fa-solid filled-star' : 'fa-regular empty-star'}`}
+          className={`fa-star ${i <= (rating || 0) ? 'fa-solid filled-star' : 'fa-regular empty-star'}`}
         ></i>
       );
     }
@@ -56,14 +72,14 @@ const Favorites: React.FC = () => {
 
   const onSearch = (query: string) => {
     const filtered = favoritesList.filter(favorite =>
-      favorite.book.title.toLowerCase().includes(query.toLowerCase()) ||
-      favorite.book.author.toLowerCase().includes(query.toLowerCase())
+      favorite.title.toLowerCase().includes(query.toLowerCase()) ||
+      favorite.author.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredFavoritesList(filtered);
   };
 
   if (editingBook) {
-    return <EditBook book={editingBook} onUpdate={() => setEditingBook(null)} />;
+    return <EditBook book={editingBook} onUpdate={() => handleUpdate} />;
   }
 
   return (
@@ -74,15 +90,15 @@ const Favorites: React.FC = () => {
       <br />
       <div className="content-container">
         {filteredFavoritesList.map(favorite => (
-          <div key={favorite.id} className="book-card">
+          <div key={favorite.book_id} className="book-card">
             <div className="book-info">
               <i className="fa-solid fa-book-open book-icon"></i>
-              <span className="book-title">{favorite.book.title} <span className="book-author">by {favorite.book.author}</span></span>
+              <span className="book-title">{favorite.title} <span className="book-author">by {favorite.author || 'Unknown Author'}</span></span>
             </div>
-            <div className="book-price">{formatPrice(favorite.book.price)} GBP</div>
-            <div className="book-stars">{renderStars(favorite.book.rating)}</div>
-            <a href="#" className="edit-link" onClick={() => setEditingBook(favorite.book)}>Edit</a>
-            <a href="#" className="delete-link" onClick={() => deleteFavorite(favorite.book.id)}>Delete</a>
+            <div className="book-price">{formatPrice(favorite.price)} GBP</div>
+            <div className="book-stars">{renderStars(favorite.rating)}</div>
+            <a href="#" className="edit-link" onClick={() => setEditingBook(favorite)}>Edit</a>
+            <a href="#" className="delete-link" onClick={() => deleteFavorite(favorite.book_id)}>Delete</a>
             <i className="fas fa-heart icon heart-icon"></i>
           </div>
         ))}
